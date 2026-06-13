@@ -10,7 +10,7 @@ namespace Bakery
         void OnValidate()
         {
             if (_cursor == null)
-                Debug.LogWarning($"Cursor is not set for {gameObject.name} in {GetType().Name}");
+                Debug.LogWarning($"Cursor is not set for {gameObject.name} in {GetType().Name}", this);
         }
         public CursorType Cursor
         {
