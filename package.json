@@ -5,6 +5,7 @@
     "description": "Wrapper for managing the cursor and raycasting for the user.",
     "unity": "2022.3",
     "unityRelease": "62f3",
+    "hideInEditor": false,
     "dependencies": {
         "com.unity.inputsystem": "1.14.2"
     },
