@@ -1,7 +1,7 @@
 {
-    "name": "bakery.user",
+    "name": "com.holypastry.bakery.user",
     "version": "0.1.2",
-    "displayName": "Bakery User Service",
+    "displayName": "Bakery User",
     "description": "Wrapper for managing the cursor and raycasting for the user.",
     "unity": "2022.3",
     "unityRelease": "62f3",
