@@ -1,6 +1,6 @@
 {
     "name": "bakery.user",
-    "version": "0.1.1",
+    "version": "0.1.2",
     "displayName": "Bakery User Service",
     "description": "Wrapper for managing the cursor and raycasting for the user.",
     "unity": "2022.3",
@@ -11,14 +11,9 @@
     },
     "samples": [
         {
-            "displayName": "Cursors",
-            "description": "A few already set up cursors to get started",
-            "path": "Samples~/Cursors/"
-        },
-        {
-            "displayName": "Prefabs",
-            "description": "Manager and Debug prefabs to quickly set up the user service in a scene.",
-            "path": "Samples~/Prefabs/"
+            "displayName": "User Service Sample",
+            "description": "A few prefabs and already set up cursors to get started",
+            "path": "Samples~/"
         }
     ],
     "keywords": [
