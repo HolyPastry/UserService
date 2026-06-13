@@ -1,6 +1,6 @@
 {
     "name": "bakery.user",
-    "version": "0.1.0",
+    "version": "0.1.1",
     "displayName": "Bakery User Service",
     "description": "Wrapper for managing the cursor and raycasting for the user.",
     "unity": "2022.3",
