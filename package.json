@@ -1,0 +1,33 @@
+{
+    "name": "bakery.user",
+    "version": "0.1.0",
+    "displayName": "Bakery User Service",
+    "description": "Wrapper for managing the cursor and raycasting for the user.",
+    "unity": "2022.3",
+    "unityRelease": "62f3",
+    "dependencies": {
+        "com.unity.inputsystem": "1.14.2"
+    },
+    "samples": [
+        {
+            "displayName": "Cursors",
+            "description": "A few already set up cursors to get started",
+            "path": "Samples~/Cursors"
+        },
+        {
+            "displayName": "Prefabs",
+            "description": "Manager and Debug prefabs to quickly set up the user service in a scene.",
+            "path": "Samples~/Prefabs"
+        }
+    ],
+    "keywords": [
+        "Cursor",
+        "Raycasting",
+        "User"
+    ],
+    "author": {
+        "name": "Sebastien Berton",
+        "email": "sebasti1.berton@gmail.com",
+        "url": "https://github.com/HolyPastry"
+    }
+}
