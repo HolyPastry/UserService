@@ -45,7 +45,7 @@ namespace Bakery
             _cursors.Add(mouseCursor);
             if (_gamepadCursor != null)
                 _cursors.Add(_gamepadCursor);
-            _prevPosition = GetPosition();
+
             _sleepTime = Time.time;
         }
         void OnEnable()
