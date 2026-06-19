@@ -59,14 +59,14 @@ namespace Bakery
             User.Cursor = User.UnregisterCursorManager;
             User.Events.Device.OnChanged -= OnDeviceChanged;
         }
-        void Start()
+        IEnumerator Start()
         {
             if (_onByDefault)
             {
                 SetVisibility(true);
                 Unlock(true);
             }
-
+            yield return null;
             OnDeviceChanged();
             _prevPosition = GetPosition();
             _sleepTime = Time.time;
