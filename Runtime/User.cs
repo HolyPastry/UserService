@@ -76,7 +76,7 @@ namespace Bakery
 
         private class DeviceManagerDummy : IDeviceManager
         {
-            public EnumInputScheme InputScheme => EnumInputScheme.MouseKeyboard;
+            public EnumInputScheme InputScheme => EnumInputScheme.KeyboardAndMouse;
             public EnumGamepadType GamepadType => EnumGamepadType.Unknown;
         }
 
