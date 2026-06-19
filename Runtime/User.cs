@@ -76,8 +76,8 @@ namespace Bakery
 
         private class DeviceManagerDummy : IDeviceManager
         {
-            public EnumInputScheme InputScheme => EnumInputScheme.Gamepad;
-            public EnumGamepadType GamepadType => EnumGamepadType.Xbox;
+            public EnumInputScheme InputScheme => EnumInputScheme.MouseKeyboard;
+            public EnumGamepadType GamepadType => EnumGamepadType.None;
         }
 
         private class CursorRaycastDummy : ICursorRaycast
