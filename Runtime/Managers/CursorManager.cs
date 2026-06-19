@@ -62,12 +62,13 @@ namespace Bakery
         }
         IEnumerator Start()
         {
+            yield return null;
             if (_onByDefault)
             {
                 SetVisibility(true);
                 Unlock(true);
             }
-            yield return null;
+
             OnDeviceChanged();
             _prevPosition = GetPosition();
             _sleepTime = Time.time;
