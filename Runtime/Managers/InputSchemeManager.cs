@@ -12,6 +12,15 @@ namespace Bakery.Inputs
 
         public bool IsPlayerMovementDisabled => !_playerInput.inputIsActive;
 
+        void Awake()
+        {
+            User.Scheme = () => this;
+        }
+        void OnDestroy()
+        {
+            User.Scheme = User.UnregisterInputSchemeManager;
+        }
+
         public void ToggleControls(bool isOn)
         {
             if (isOn)

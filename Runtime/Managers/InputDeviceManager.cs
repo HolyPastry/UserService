@@ -17,18 +17,24 @@ namespace Bakery
 
         private EnumInputScheme _currentInputScheme = EnumInputScheme.KeyboardAndMouse;
         private EnumGamepadType _currentGamepadType = EnumGamepadType.Xbox;
-
-        void OnEnable()
+        void Awake()
         {
             User.Device = () => this;
+        }
+        void OnEnable()
+        {
             LoadInputSchemePrefs();
             _playerInput.onControlsChanged += OnControlChanged;
         }
 
         void OnDisable()
         {
-            User.Device = User.UnregisterDeviceManager;
             _playerInput.onControlsChanged -= OnControlChanged;
+        }
+
+        void OnDestroy()
+        {
+            User.Device = User.UnregisterDeviceManager;
         }
 
         private void LoadInputSchemePrefs()

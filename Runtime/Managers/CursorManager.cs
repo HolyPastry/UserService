@@ -48,16 +48,15 @@ namespace Bakery
                 _cursors.Add(_gamepadCursor);
 
             _sleepTime = Time.time;
+            User.Cursor = () => this;
         }
         void OnEnable()
         {
-            User.Cursor = () => this;
             User.Events.Device.OnChanged += OnDeviceChanged;
         }
 
         void OnDisable()
         {
-            User.Cursor = User.UnregisterCursorManager;
             User.Events.Device.OnChanged -= OnDeviceChanged;
         }
         IEnumerator Start()
@@ -72,6 +71,11 @@ namespace Bakery
             OnDeviceChanged();
             _prevPosition = GetPosition();
             _sleepTime = Time.time;
+        }
+
+        void OnDestroy()
+        {
+            User.Cursor = User.UnregisterCursorManager;
         }
 
         private Vector2 GetPosition()

@@ -16,12 +16,16 @@ namespace Bakery
         private List<GameObject> _hoveredObjects;
         private Camera _camera;
 
-        private void Awake() => _camera = Camera.main;
+        private void Awake()
+        {
+            _camera = Camera.main;
+            User.Raycast = () => this;
+        }
 
-        void OnEnable()
-            => User.Raycast = () => this;
-        void OnDisable()
-            => User.Raycast = User.UnregisterCursorRaycast;
+        void OnDestroy()
+        {
+            User.Raycast = User.UnregisterCursorRaycast;
+        }
 
         void FixedUpdate()
         {
