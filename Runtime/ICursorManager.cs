@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Bakery
@@ -6,6 +7,8 @@ namespace Bakery
     {
 
         Vector2 Position { get; set; }
+
+        IEnumerable<ICursorAttachable> AttachedObjects { get; }
         void Override(CursorType type);
         void RemoveOverride();
 

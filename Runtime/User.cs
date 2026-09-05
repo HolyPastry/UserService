@@ -20,6 +20,8 @@ namespace Bakery
                 public static Action OnSleep = delegate { };
                 public static Action OnWake = delegate { };
                 public static Action OnMove = delegate { };
+                public static Action OnAttach = delegate { };
+                public static Action OnDetach = delegate { };
             }
         }
         public static Func<ICursorManager> Cursor = UnregisterCursorManager;
@@ -94,6 +96,10 @@ namespace Bakery
         private class CursorManagerDummy : ICursorManager
         {
             public Vector2 Position { get => Vector2.zero; set { } }
+
+            public IEnumerable<ICursorAttachable> AttachedObjects
+                => new List<ICursorAttachable>();
+
             public void Attach(ICursorAttachable transform) { }
             public void Detach(ICursorAttachable transform) { }
             public void Override(CursorType type) { }

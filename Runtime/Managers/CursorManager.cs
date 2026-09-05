@@ -40,6 +40,8 @@ namespace Bakery
             set => Warp(value);
         }
 
+        public IEnumerable<ICursorAttachable> AttachedObjects => _attached;
+
         void Awake()
         {
             var mouseCursor = new MouseCursor();
@@ -100,10 +102,16 @@ namespace Bakery
         }
 
         public void Attach(ICursorAttachable attachable)
-            => _attached.AddUnique(attachable);
+        {
+            _attached.AddUnique(attachable);
+            User.Events.Cursor.OnAttach.Invoke();
+        }
 
         public void Detach(ICursorAttachable attachable)
-            => _attached.Remove(attachable);
+        {
+            _attached.Remove(attachable);
+            User.Events.Cursor.OnDetach.Invoke();
+        }
 
         public void StorePosition()
             => _storedPosition = GetPosition();

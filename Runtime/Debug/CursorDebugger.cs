@@ -13,6 +13,8 @@ namespace Bakery
             User.Events.Cursor.OnExit += OnExit;
             User.Events.Cursor.OnSleep += OnSleep;
             User.Events.Cursor.OnWake += OnWake;
+            User.Events.Cursor.OnAttach += OnAttach;
+            User.Events.Cursor.OnDetach += OnDetach;
 
         }
         void OnDisable()
@@ -21,6 +23,24 @@ namespace Bakery
             User.Events.Cursor.OnExit -= OnExit;
             User.Events.Cursor.OnSleep -= OnSleep;
             User.Events.Cursor.OnWake -= OnWake;
+            User.Events.Cursor.OnAttach -= OnAttach;
+            User.Events.Cursor.OnDetach -= OnDetach;
+        }
+
+        private void OnDetach()
+        {
+            Debug.Log("Cursor detach");
+            var attachedObjects = User.Cursor().AttachedObjects;
+            foreach (var obj in attachedObjects)
+                Debug.Log("Attached object: " + obj);
+        }
+
+        private void OnAttach()
+        {
+            Debug.Log("Cursor attach");
+            var attachedObjects = User.Cursor().AttachedObjects;
+            foreach (var obj in attachedObjects)
+                Debug.Log("Attached object: " + obj);
         }
 
         private void OnSleep()
