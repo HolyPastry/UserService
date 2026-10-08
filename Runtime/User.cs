@@ -115,13 +115,18 @@ namespace Bakery
 
         //Cleaning stuff in case cowboys are fast reloading in the editor
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.SubsystemRegistration)]
-        static void ResetStatics()
+        public static void ResetStatics()
         {
             Events.Cursor.OnEnter = delegate { };
             Events.Cursor.OnExit = delegate { };
             Events.Cursor.OnSleep = delegate { };
             Events.Cursor.OnWake = delegate { };
+            Events.Cursor.OnAttach = delegate{};
+            Events.Cursor.OnDetach = delegate{};
+            Events.Cursor.OnMove = delegate {};
+            
             Events.Device.OnChanged = delegate { };
+    
 
             Cursor = UnregisterCursorManager;
             Raycast = UnregisterCursorRaycast;
@@ -129,7 +134,7 @@ namespace Bakery
             Scheme = UnregisterInputSchemeManager;
 
 #if UNITY_EDITOR
-            Debug.Log("[User] Static fields reset (domain reload skipped)");
+            Debug.Log("[User] Static fields reset");
 #endif
         }
     }

@@ -34,7 +34,7 @@ namespace Bakery
         static PointerEventData ScreenPosToPointerData(Vector2 screenPos)
             => new(EventSystem.current) { position = screenPos };
 
-        internal static bool IsObjectUnderPointer(GameObject gameObject)
+        public static bool IsObjectUnderPointer(GameObject gameObject)
         {
             List<GameObject> objList = UIRaycast(User.Cursor().Position);
             if (objList.Count == 0) return false;
@@ -45,22 +45,5 @@ namespace Bakery
 
             return false;
         }
-
-
-
-
-        // internal static void GetHitPosition(BagItemComponent itemBeingPlaced, out Vector3 worldPosition)
-        // {
-        //     var pointerData = ScreenPosToPointerData(InputServices.GetMousePosition());
-        //     var results = new List<RaycastResult>();
-        //     EventSystem.current.RaycastAll(pointerData, results);
-
-        //     if (results.Count == 0)
-        //     {
-        //         worldPosition = InputServices.GetMousePosition();
-        //         return;
-        //     }
-        //     worldPosition = results[0].worldPosition;
-        // }
     }
 }
