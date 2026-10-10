@@ -1,4 +1,3 @@
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +10,8 @@ namespace Bakery
         public GameObject HoveredObject => _hoveredObject;
         public LayerMask InteractableLayer => _interactableLayerMask;
 
-        [SerializeField] private LayerMask _interactableLayerMask;
+        [SerializeField]
+        private LayerMask _interactableLayerMask;
         private GameObject _hoveredObject;
         private List<GameObject> _hoveredObjects;
         private Camera _camera;
@@ -27,11 +27,13 @@ namespace Bakery
             User.Raycast = User.UnregisterCursorRaycast;
         }
 
-        void FixedUpdate()
+        void Update()
         {
-            if (_camera == null) _camera = Camera.main;
+            if (_camera == null)
+                _camera = Camera.main;
 
-            if (TestIfCursorOverUI()) return;
+            if (TestIfCursorOverUI())
+                return;
             _hoveredObjects.Clear();
             TestIfCursorOverInteractable();
             if (_hoveredObject != null)
@@ -40,18 +42,25 @@ namespace Bakery
 
         private void TestIfCursorOverInteractable()
         {
-            if (!Physics.Raycast(_camera.ScreenPointToRay(User.Cursor().Position),
-                    out RaycastHit hit, 1000f,
-                    _interactableLayerMask))
+            if (
+                !Physics.Raycast(
+                    _camera.ScreenPointToRay(User.Cursor().Position),
+                    out RaycastHit hit,
+                    1000f,
+                    _interactableLayerMask
+                )
+            )
             {
-                if (_hoveredObject == null) return;
+                if (_hoveredObject == null)
+                    return;
                 User.Events.Cursor.OnExit?.Invoke(_hoveredObject);
 
                 _hoveredObject = null;
                 return;
             }
 
-            if (hit.collider.gameObject == _hoveredObject) return;
+            if (hit.collider.gameObject == _hoveredObject)
+                return;
 
             if (_hoveredObject != null)
                 User.Events.Cursor.OnExit?.Invoke(_hoveredObject);
@@ -62,8 +71,7 @@ namespace Bakery
 
         private bool TestIfCursorOverUI()
         {
-            if (!RaycastUtilities.PointerIsOverUI(User.Cursor().Position,
-                        out _hoveredObjects))
+            if (!RaycastUtilities.PointerIsOverUI(User.Cursor().Position, out _hoveredObjects))
                 return false;
 
             if (_hoveredObjects[0] == _hoveredObject)
@@ -90,15 +98,14 @@ namespace Bakery
 
         public bool IsOverUI(GameObject obj)
         {
-            return _hoveredObject != null &&
-                    _hoveredObject == obj &&
-                    _hoveredObject.layer == LayerMask.NameToLayer("UI");
+            return _hoveredObject != null
+                && _hoveredObject == obj
+                && _hoveredObject.layer == LayerMask.NameToLayer("UI");
         }
 
         public bool IsOverUI()
         {
-            return _hoveredObject != null &&
-                _hoveredObject.layer == LayerMask.NameToLayer("UI");
+            return _hoveredObject != null && _hoveredObject.layer == LayerMask.NameToLayer("UI");
         }
     }
 }

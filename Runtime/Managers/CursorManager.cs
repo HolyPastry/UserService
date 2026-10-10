@@ -1,23 +1,39 @@
-using System.Collections.Generic;
-using UnityEngine;
-using Bakery.Core;
-using UnityEngine.InputSystem;
 using System.Collections;
+using System.Collections.Generic;
+using Bakery.Core;
+using UnityEngine;
+using UnityEngine.InputSystem;
 
 namespace Bakery
 {
-
     public class CursorManager : MonoBehaviour, ICursorManager
     {
-        [SerializeField] private InputActionReference _mouseMoveAction;
-        [SerializeField] private InputActionReference _gamepadCursorMoveAction;
-        [SerializeField] private bool _onByDefault = false;
-        [SerializeField] private CursorType _defaultCursor;
-        [SerializeField] private List<CursorType> _cursorTypes;
-        [SerializeField] private float _sleepTimer = 5f;
-        [SerializeField] private bool _forceCursorOn;
-        [SerializeField] private bool _activateSleepMode = true;
-        [SerializeField] private GamepadCursor _gamepadCursor;
+        [SerializeField]
+        private InputActionReference _mouseMoveAction;
+
+        [SerializeField]
+        private InputActionReference _gamepadCursorMoveAction;
+
+        [SerializeField]
+        private bool _onByDefault = false;
+
+        [SerializeField]
+        private CursorType _defaultCursor;
+
+        [SerializeField]
+        private List<CursorType> _cursorTypes;
+
+        [SerializeField]
+        private float _sleepTimer = 5f;
+
+        [SerializeField]
+        private bool _forceCursorOn;
+
+        [SerializeField]
+        private bool _activateSleepMode = true;
+
+        [SerializeField]
+        private GamepadCursor _gamepadCursor;
 
         private bool _overriding;
         private readonly List<ICursorAttachable> _attached = new();
@@ -52,6 +68,7 @@ namespace Bakery
             _sleepTime = Time.time;
             User.Cursor = () => this;
         }
+
         void OnEnable()
         {
             User.Events.Device.OnChanged += OnDeviceChanged;
@@ -61,6 +78,7 @@ namespace Bakery
         {
             User.Events.Device.OnChanged -= OnDeviceChanged;
         }
+
         IEnumerator Start()
         {
             yield return null;
@@ -113,14 +131,11 @@ namespace Bakery
             User.Events.Cursor.OnDetach.Invoke();
         }
 
-        public void StorePosition()
-            => _storedPosition = GetPosition();
+        public void StorePosition() => _storedPosition = GetPosition();
 
-        public void RecallPosition()
-            => Warp(_storedPosition);
+        public void RecallPosition() => Warp(_storedPosition);
 
-        public void ResetPosition()
-            => Warp(new Vector2(Screen.width / 2, Screen.height / 2));
+        public void ResetPosition() => Warp(new Vector2(Screen.width / 2, Screen.height / 2));
 
         public void WakeUp()
         {
@@ -128,12 +143,14 @@ namespace Bakery
             _sleepTime = Time.time;
             User.Events.Cursor.OnWake.Invoke();
         }
+
         public void PutToSleep()
         {
             _sleepMode = true;
             _sleepTime = Time.time;
             User.Events.Cursor.OnSleep.Invoke();
         }
+
         private void OnDeviceChanged()
         {
             if (User.Device().InputScheme is EnumInputScheme.Gamepad)
@@ -142,20 +159,21 @@ namespace Bakery
                 _cursors.ForEach(x => x.SetActive(x as MouseCursor != null));
         }
 
-
         private void SleepModeUpdate()
         {
             if (_sleepMode && _prevPosition != GetPosition())
                 WakeUp();
 
-            if (!_sleepMode &&
-                    _prevPosition == GetPosition() &&
-                    Time.time - _sleepTime > _sleepTimer)
+            if (
+                !_sleepMode
+                && _prevPosition == GetPosition()
+                && Time.time - _sleepTime > _sleepTimer
+            )
                 PutToSleep();
             _prevPosition = GetPosition();
         }
 
-        void FixedUpdate()
+        void Update()
         {
             if (_activateSleepMode)
                 SleepModeUpdate();
@@ -181,6 +199,7 @@ namespace Bakery
                 _visibilityPoint--;
             _visibilityPoint = Mathf.Max(0, _visibilityPoint);
         }
+
         private void StateUpdate()
         {
             if (_sleepMode)
@@ -219,14 +238,17 @@ namespace Bakery
 
         private void IconUpdate()
         {
-            if (_overriding) return;
+            if (_overriding)
+                return;
             var obj = User.Raycast().HoveredObject;
-            if (obj == null ||
-                !obj.TryGetComponent<CustomCursor>(out var customCursor) ||
-                customCursor.enabled == false
-                )
+            if (
+                obj == null
+                || !obj.TryGetComponent<CustomCursor>(out var customCursor)
+                || customCursor.enabled == false
+            )
                 SetCursor(_defaultCursor);
-            else SetCursor(customCursor.Cursor);
+            else
+                SetCursor(customCursor.Cursor);
         }
 
         public void Override(CursorType type)
